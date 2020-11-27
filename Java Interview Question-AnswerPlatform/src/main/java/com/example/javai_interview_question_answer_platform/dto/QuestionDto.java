@@ -13,7 +13,7 @@ public class QuestionDto {
     @NotNull(message = "type can't be empty")
     private JobType jobType;
     private Date date;
-    
+
     private User author;
 
     public QuestionDto(String description, JobType jobType, Date date, User author) {

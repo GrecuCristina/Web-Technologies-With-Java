@@ -6,12 +6,10 @@ import com.example.javai_interview_question_answer_platform.mapper.QuestionMappe
 import com.example.javai_interview_question_answer_platform.model.Question;
 import com.example.javai_interview_question_answer_platform.model.User;
 import com.example.javai_interview_question_answer_platform.service.UserService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.net.URI;
@@ -23,6 +21,7 @@ public class QuestionController {
 
     private final UserService userService;
     private final QuestionMapper questionMapper;
+
 
     public QuestionController(UserService userService, QuestionMapper questionMapper) {
         this.userService = userService;
@@ -38,5 +37,10 @@ public class QuestionController {
                 .created(URI.create("/question/" + createdQuestion.getId()))
                 .body(createdQuestion);
 
+    }
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Boolean> remove(@PathVariable("id") int id) {
+        boolean removed = userService.removeQuestion(id);
+        return new ResponseEntity<>(removed, HttpStatus.OK);
     }
 }

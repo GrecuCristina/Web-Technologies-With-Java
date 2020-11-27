@@ -59,4 +59,15 @@ public class Question {
     public void setAuthor(User author) {
         this.author = author;
     }
+
+    @Override
+    public String toString() {
+        return "Question{" +
+                "id=" + id +
+                ", description='" + description + '\'' +
+                ", jobType=" + jobType +
+                ", date=" + date +
+                ", author=" + author +
+                '}';
+    }
 }
