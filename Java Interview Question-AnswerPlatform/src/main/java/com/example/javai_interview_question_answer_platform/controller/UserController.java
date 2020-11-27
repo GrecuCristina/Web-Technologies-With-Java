@@ -27,7 +27,8 @@ public class UserController {
 
     }
 
-    @PostMapping
+
+    @PostMapping("/register")
     public ResponseEntity<User>createUser(@Valid @RequestBody UserDto userDto){
 
         User user = userMapper.userDtoToUser(userDto);

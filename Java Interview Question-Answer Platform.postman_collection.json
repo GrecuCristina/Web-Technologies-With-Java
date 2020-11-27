@@ -6,7 +6,7 @@
 	},
 	"item": [
 		{
-			"name": "user",
+			"name": "register",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -82,6 +82,34 @@
 					"port": "8080",
 					"path": [
 						"questions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addAnswer",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"description\": \"the main method...\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/answers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"answers"
 					]
 				}
 			},
