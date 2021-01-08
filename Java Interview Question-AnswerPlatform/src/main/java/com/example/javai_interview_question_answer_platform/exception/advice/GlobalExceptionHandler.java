@@ -1,7 +1,6 @@
 package com.example.javai_interview_question_answer_platform.exception.advice;
 
-import com.example.javai_interview_question_answer_platform.exception.QuestionNotFoundException;
-import com.example.javai_interview_question_answer_platform.exception.UserNotFoundException;
+import com.example.javai_interview_question_answer_platform.exception.*;
 import com.example.javai_interview_question_answer_platform.model.Question;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +13,24 @@ import org.springframework.web.servlet.handler.UserRoleAuthorizationInterceptor;
 @ControllerAdvice
 public class GlobalExceptionHandler extends RuntimeException{
 
+
+    @ExceptionHandler(DuplicateEmailException.class)
+    public ResponseEntity handle(DuplicateEmailException e){
+        return ResponseEntity
+                .badRequest().body(e.getMessage());
+    }
+
+    @ExceptionHandler(UserNotLoggedInException.class)
+    public ResponseEntity handle(UserNotLoggedInException e){
+        return ResponseEntity
+                .badRequest().body(e.getMessage());
+    }
+
+    @ExceptionHandler(UserAlreadyLoggedInException.class)
+    public ResponseEntity handle(UserAlreadyLoggedInException e){
+        return ResponseEntity
+                .badRequest().body(e.getMessage());
+    }
 
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity handle(UserNotFoundException e){

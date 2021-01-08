@@ -8,6 +8,6 @@ import org.springframework.stereotype.Component;
 public class QuestionMapper {
 
     public Question questionDtoToQuestion(QuestionDto questionDto){
-        return new Question(questionDto.getDescription(),questionDto.getJobType(),questionDto.getAuthor());
+        return new Question(questionDto.getDescription(),questionDto.getJobType(),questionDto.getUserId());
     }
 }

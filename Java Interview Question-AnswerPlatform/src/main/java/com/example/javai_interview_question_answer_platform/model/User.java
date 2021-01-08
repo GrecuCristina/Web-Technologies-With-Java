@@ -10,7 +10,17 @@ public class User {
     private String email;
     private int age;
     private String password;
+    private boolean isLoggedIn;
 
+    public User(int id, String firstName, String lastName, String email, int age, String password, boolean isLoggedIn) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.age = age;
+        this.password = password;
+        this.isLoggedIn = isLoggedIn;
+    }
 
     public User() {
     }
@@ -21,6 +31,14 @@ public class User {
         this.email = email;
         this.age = age;
         this.password = password;
+    }
+
+    public boolean isLoggedIn() {
+        return isLoggedIn;
+    }
+
+    public void setLoggedIn(boolean loggedIn) {
+        isLoggedIn = loggedIn;
     }
 
     public int getId() {

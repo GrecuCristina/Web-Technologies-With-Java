@@ -8,16 +8,16 @@ public class Question {
     private String description;
     private JobType jobType;
     private Date date;
-    private User author;
+    private int  userId;
 
     public Question() {
     }
 
-    public Question(String description, JobType jobType, User author) {
+    public Question(String description, JobType jobType, int userId){
         this.description = description;
         this.jobType = jobType;
 
-        this.author = author;
+        this.userId = userId;
     }
 
     public int getId() {
@@ -52,12 +52,12 @@ public class Question {
         this.date = date;
     }
 
-    public User getAuthor() {
-        return author;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setAuthor(User author) {
-        this.author = author;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     @Override
@@ -67,7 +67,7 @@ public class Question {
                 ", description='" + description + '\'' +
                 ", jobType=" + jobType +
                 ", date=" + date +
-                ", author=" + author +
+                ", userId=" + userId +
                 '}';
     }
 }

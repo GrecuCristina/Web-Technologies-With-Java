@@ -10,8 +10,8 @@ public class UserDto {
     private String firstName;
     @NotBlank(message = "LastName cannot be empty")
     private String lastName;
-    @Email(message = "Email must be valid")
 
+    @Email(message = "Email must be valid")
     private String email;
     @Min(0)
     @Max(150)

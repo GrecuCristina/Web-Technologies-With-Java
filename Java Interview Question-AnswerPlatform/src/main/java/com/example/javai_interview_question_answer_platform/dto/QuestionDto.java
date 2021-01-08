@@ -12,15 +12,16 @@ public class QuestionDto {
     private String description;
     @NotNull(message = "type can't be empty")
     private JobType jobType;
+
     private Date date;
 
-    private User author;
+    private int userId;
 
-    public QuestionDto(String description, JobType jobType, Date date, User author) {
+    public QuestionDto(String description, JobType jobType, Date date, int userId) {
         this.description = description;
         this.jobType = jobType;
         this.date = date;
-        this.author = author;
+        this.userId = userId;
     }
 
     public String getDescription() {
@@ -47,11 +48,12 @@ public class QuestionDto {
         this.date = date;
     }
 
-    public User getAuthor() {
-        return author;
+
+    public int getUserId() {
+        return userId;
     }
 
-    public void setAuthor(User author) {
-        this.author = author;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 }

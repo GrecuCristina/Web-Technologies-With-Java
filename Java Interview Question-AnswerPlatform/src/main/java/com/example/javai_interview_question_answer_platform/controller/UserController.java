@@ -37,16 +37,29 @@ public class UserController {
                 .created(URI.create("/user/" + createdUser.getId()))
                 .body(createdUser);
 
+
+
     }
     @GetMapping("/login/{email}/{password}")
     public User getUser(@PathVariable String email, @PathVariable String password){
         return userService.getUser(email, password);
     }
-
+    @GetMapping("/logout/{id}")
+    public User logoutUser(@PathVariable int id){
+        return userService.logoutUser(id);
+    }
     @GetMapping("/showAllUsers")
     public List<User> getAllUsers(){
         return userService.getAllUsers();
     }
 
 
+    @PutMapping("/{id}")
+    public void editUserInfo(
+            @Valid
+            @RequestBody
+                    UserDto userDto, @PathVariable int id) {
+        User user = userMapper.userDtoToUser(userDto);
+        userService.editUserInfo(user, id);
+    }
 }
