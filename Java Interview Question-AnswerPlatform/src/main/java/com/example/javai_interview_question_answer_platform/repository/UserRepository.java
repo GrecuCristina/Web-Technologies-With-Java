@@ -1,6 +1,8 @@
 package com.example.javai_interview_question_answer_platform.repository;
 
 import com.example.javai_interview_question_answer_platform.exception.UserNotFoundException;
+import com.example.javai_interview_question_answer_platform.model.Review;
+import com.example.javai_interview_question_answer_platform.model.ReviewType;
 import com.example.javai_interview_question_answer_platform.model.User;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -44,13 +46,29 @@ public class UserRepository {
         jdbcTemplate.update(preparedStatementCreator, generatedKeyHolder);
 
         user.setId(generatedKeyHolder.getKey().intValue());
+       // user.setLoggedIn(false);
         return user;
     }
 
     public List<User>getAllUsers(){
-        List<User>myUsers = new ArrayList<>();
-        myUsers = userList.stream().filter(user -> user.getEmail().equals("grecu_cristina98@yahoo.com")).collect(Collectors.toList());
-        return myUsers;
+
+            String sql = "SELECT * from users";
+
+            RowMapper<User> mapper = (resultSet, rowNum) ->
+                    new User(resultSet.getInt("id"),
+                            resultSet.getString("firstName"),
+                            resultSet.getString("lastName"),
+                            resultSet.getString("email"),
+                            resultSet.getInt("age"),
+                            resultSet.getString("password"),
+                            resultSet.getBoolean("isLoggedIn")
+
+
+
+                    );
+
+            return jdbcTemplate.query(sql, mapper);
+
     }
     public Optional<User> getUser(String email, String password) {
 
@@ -68,6 +86,7 @@ public class UserRepository {
 
         List<User> users = jdbcTemplate.query(sql, mapper, email, password);
         if(users!= null && !users.isEmpty()) {
+
             return Optional.of(users.get(0));
         } else {
             return Optional.empty();
@@ -90,16 +109,17 @@ public class UserRepository {
 
         List<User> users = jdbcTemplate.query(sql, mapper, id);
         if(users!= null && !users.isEmpty()) {
+            System.out.println("get user by id = "+ users.get(0));
             return Optional.of(users.get(0));
         } else {
             return Optional.empty();
         }
 
     }
-    public void editUserInfo(int id, String firstName, String lastName) {
-        String sql = "update users u set u.firstName = ?, u.lastName = ? where u.id = ?";
-        System.out.println(firstName +" "+lastName+ " "+ id);
-        int numberOfUpdatedUserAccounts = jdbcTemplate.update(sql, firstName, lastName, id);
+    public void editUserInfo(int id, String firstName, String lastName, int age) {
+        String sql = "update users u set u.firstName = ?, u.lastName = ?, u.age = ? where u.id = ?";
+
+        int numberOfUpdatedUserAccounts = jdbcTemplate.update(sql, firstName, lastName, age, id);
         if(numberOfUpdatedUserAccounts == 0) {
             throw new UserNotFoundException();
         }
@@ -138,6 +158,34 @@ public class UserRepository {
         }
     }
 
+
+    public Optional<User> getById(int id) {
+        String sql = "select * from users u where u.id = ?";
+        RowMapper<User> mapper = getUserRowMapper();
+
+        return getUserFromResultSet(jdbcTemplate.query(sql, mapper, id));
+    }
+
+    private Optional<User> getUserFromResultSet(List<User> users) {
+     if(users != null && users.isEmpty() == false){
+         return Optional.of(users.get(0));
+     }
+     else{
+         return Optional.empty();
+     }
+    }
+
+    private RowMapper<User> getUserRowMapper() {
+        return(resultSet, i) ->
+                new User(resultSet.getInt("id"),
+                        resultSet.getString("firstName"),
+                        resultSet.getString("lastName"),
+                        resultSet.getString("email"),
+                        resultSet.getInt("age"),
+                        resultSet.getString("password"),
+                        resultSet.getBoolean("isLoggedIn")
+                );
+    }
 
 
 }

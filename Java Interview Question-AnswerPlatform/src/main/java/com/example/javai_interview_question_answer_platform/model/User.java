@@ -98,6 +98,7 @@ public class User {
                 ", email='" + email + '\'' +
                 ", age=" + age +
                 ", password='" + password + '\'' +
+                ", isLoggedIn=" + isLoggedIn +
                 '}';
     }
 

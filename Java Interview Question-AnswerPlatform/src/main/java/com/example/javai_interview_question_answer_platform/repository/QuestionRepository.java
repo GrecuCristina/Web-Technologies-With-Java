@@ -1,18 +1,17 @@
 package com.example.javai_interview_question_answer_platform.repository;
 
+import com.example.javai_interview_question_answer_platform.model.JobType;
 import com.example.javai_interview_question_answer_platform.model.Question;
 import com.example.javai_interview_question_answer_platform.model.User;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 import java.sql.Statement;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,52 +21,78 @@ public class QuestionRepository {
 
     private JdbcTemplate jdbcTemplate;
 
-    public Question addQuestion(Question question) {
-        System.out.println("Inside question Repository - add question");
+    public QuestionRepository(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
-        String sql = "insert into questions values (?, ?, ?, ?, ?)";
-        System.out.println("ceva");
+    public Question addQuestion(Question question) {
+
+        String sql = "insert into questions values (?, ?, ?, ?, ?, ?)";
+
         PreparedStatementCreator preparedStatementCreator = (connection) -> {
             PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setObject(1, null);
             preparedStatement.setString(2, question.getDescription());
             preparedStatement.setString(3, question.getJobType().toString());
-            preparedStatement.setDate(4, new java.sql.Date(System.currentTimeMillis()));
+            preparedStatement.setTimestamp(4, new java.sql.Timestamp(System.currentTimeMillis()));
             preparedStatement.setInt(5, question.getUserId());
+            preparedStatement.setString(6, question.getCompanyName());
+
 
             return preparedStatement;
         };
-        System.out.println("ceva2");
-        System.out.println("date = "+question.getDate());
+    ;
+
         GeneratedKeyHolder generatedKeyHolder = new GeneratedKeyHolder();
-        System.out.println("ceva3");
         jdbcTemplate.update(preparedStatementCreator, generatedKeyHolder);
-        System.out.println("ceva4");
         question.setId(generatedKeyHolder.getKey().intValue());
-        System.out.println("ceva5");
-        System.out.println("question id = "+ question.getId() + "date = "+question.getDate());
-
-
+        question.setDate(new java.sql.Timestamp(System.currentTimeMillis()));
 
         return question;
     }
+    public Optional<Question> getQuestionById(int id) {
 
-//    public boolean removeQuestion(Question question, int id) {
-//
-//        Optional<Question> questionToRemove = questionList.stream().filter(question1 -> question1.equals(question)).findFirst();
-//        if(questionToRemove.isPresent()){
-//            System.out.println("Sterg intrebarea question :"+questionToRemove);
-//            questionList.remove(id-1);
-//            System.out.println("lista intrebarilor dupa stergere este : "+questionList);
-//            return true;
-//
-//        }
-//        return false;
-//    }
-//
-//    public <Optional>Question getOneQuestion(int id) {
-//        System.out.println("Sterg intrebarea :"+questionList.get(id-1));
-//        return questionList.get(id-1);
-//    }
+        String sql = "select * from questions where id = ?";
+
+        RowMapper<Question> mapper = (resultSet, rowNum) ->
+                new Question(resultSet.getInt("id"),
+                        resultSet.getString("description"),
+                         JobType.valueOf(resultSet.getString("jobType")),
+                        resultSet.getTimestamp("date"),
+                        resultSet.getInt("userId"),
+                        resultSet.getString("companyName")
+
+                );
+
+
+        List<Question> questions = jdbcTemplate.query(sql, mapper, id);
+        if(questions!= null && questions.isEmpty() ==  false) {
+
+            return Optional.of(questions.get(0));
+        } else {
+            return Optional.empty();
+        }
+
+    }
+
+    public boolean removeQuestion(int id) {
+        String sql = "delete from questions where id =?";
+        return jdbcTemplate.update(sql, id) !=0 ;
+    }
+    public List<Question> getAll() {
+        String sql = "SELECT * from questions";
+
+        RowMapper<Question> mapper = (resultSet, rowNum) ->
+                new Question(resultSet.getInt("id"),
+                        resultSet.getString("description"),
+                        JobType.valueOf(resultSet.getString("jobType")),
+                        resultSet.getTimestamp("date"),
+                        resultSet.getInt("userId"),
+                        resultSet.getString("companyName")
+
+                );
+
+        return jdbcTemplate.query(sql, mapper);
+    }
 }
 

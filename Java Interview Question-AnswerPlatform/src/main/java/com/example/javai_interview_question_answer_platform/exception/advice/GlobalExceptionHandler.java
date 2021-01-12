@@ -14,6 +14,12 @@ import org.springframework.web.servlet.handler.UserRoleAuthorizationInterceptor;
 public class GlobalExceptionHandler extends RuntimeException{
 
 
+    @ExceptionHandler(UserNotAuthorizedException.class)
+    public ResponseEntity handle(UserNotAuthorizedException e){
+        return ResponseEntity
+                .badRequest().body(e.getMessage());
+    }
+
     @ExceptionHandler(DuplicateEmailException.class)
     public ResponseEntity handle(DuplicateEmailException e){
         return ResponseEntity
@@ -31,7 +37,16 @@ public class GlobalExceptionHandler extends RuntimeException{
         return ResponseEntity
                 .badRequest().body(e.getMessage());
     }
-
+    @ExceptionHandler(NoReviewException.class)
+    public ResponseEntity handle(NoReviewException e){
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    }
+    @ExceptionHandler(AnswerNotFoundException.class)
+    public ResponseEntity handle(AnswerNotFoundException e){
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    }
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity handle(UserNotFoundException e){
         return ResponseEntity

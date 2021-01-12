@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 @Component
 public class AnswerMapper {
     public Answer answerDtoToAnswer(AnswerDto answerDto){
-        return new Answer(answerDto.getDescription(), answerDto.getAuthor());
+        return new Answer(answerDto.getDescription(), answerDto.getDate(), answerDto.getAuthorId(), answerDto
+        .getQuestionId());
 
     }
 }

@@ -1,5 +1,7 @@
 package com.example.javai_interview_question_answer_platform.model;
 
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class Question {
@@ -7,18 +9,29 @@ public class Question {
     private int id;
     private String description;
     private JobType jobType;
-    private Date date;
+    private Timestamp date;
     private int  userId;
+    private String companyName;
 
-    public Question() {
-    }
 
-    public Question(String description, JobType jobType, int userId){
+    public Question(int id, String description, JobType jobType, Timestamp date, int userId, String companyName) {
+        this.id = id;
         this.description = description;
         this.jobType = jobType;
-
+        this.date = date;
         this.userId = userId;
+        this.companyName = companyName;
     }
+
+    public Question(String description, JobType jobType, int userId, String companyName) {
+        this.description = description;
+        this.jobType = jobType;
+        this.userId = userId;
+        this.companyName = companyName;
+    }
+
+
+
 
     public int getId() {
         return id;
@@ -44,11 +57,13 @@ public class Question {
         this.jobType = jobType;
     }
 
-    public Date getDate() {
+    public Timestamp getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+
+
+    public void setDate(Timestamp date) {
         this.date = date;
     }
 
@@ -68,6 +83,15 @@ public class Question {
                 ", jobType=" + jobType +
                 ", date=" + date +
                 ", userId=" + userId +
+                ", companyName='" + companyName + '\'' +
                 '}';
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 }

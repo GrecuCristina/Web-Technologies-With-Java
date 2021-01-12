@@ -4,24 +4,36 @@ import com.example.javai_interview_question_answer_platform.model.JobType;
 import com.example.javai_interview_question_answer_platform.model.User;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class QuestionDto {
     @NotBlank(message = "Question can't be empty")
+
     private String description;
-    @NotNull(message = "type can't be empty")
+
+
     private JobType jobType;
 
-    private Date date;
+    private Timestamp date;
 
+    @Positive(message = "userId can't be negative")
+    @NotNull(message = "userId can't be empty")
     private int userId;
 
-    public QuestionDto(String description, JobType jobType, Date date, int userId) {
+    @NotBlank(message = "company name cannot be empty")
+    private String companyName;
+
+    public QuestionDto(String description, JobType jobType, Timestamp date, int userId, String companyName) {
         this.description = description;
         this.jobType = jobType;
         this.date = date;
         this.userId = userId;
+        this.companyName = companyName;
     }
 
     public String getDescription() {
@@ -44,7 +56,7 @@ public class QuestionDto {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(Timestamp date) {
         this.date = date;
     }
 
@@ -55,5 +67,13 @@ public class QuestionDto {
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 }

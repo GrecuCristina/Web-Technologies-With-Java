@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @Validated
@@ -32,6 +33,7 @@ public class QuestionController {
     @PostMapping
     public ResponseEntity<Question> addQuestion(@Valid @RequestBody QuestionDto questionDto){
 
+
         Question question = questionMapper.questionDtoToQuestion(questionDto);
         Question createdQuestion = questionService.addQuestion(question);
         return ResponseEntity
@@ -39,9 +41,17 @@ public class QuestionController {
                 .body(createdQuestion);
 
     }
-//    @DeleteMapping(value = "/{id}")
-//    public ResponseEntity<Boolean> remove(@PathVariable("id") int id) {
-//        boolean removed = questionService.removeQuestion(id);
-//        return new ResponseEntity<>(removed, HttpStatus.OK);
-//    }
+
+    @DeleteMapping(value = "/{userId}/{id}")
+    public Boolean remove(@PathVariable("userId") int userId, @PathVariable("id") int id)  {
+
+        boolean removed = questionService.removeQuestion(userId, id);
+        return removed;
+    }
+    @GetMapping
+    public ResponseEntity<List<Question>> getAll() {
+        List<Question> questionList = questionService.getAll();
+        return new ResponseEntity<>(questionList, HttpStatus.OK);
+    }
+
 }

@@ -26,7 +26,10 @@ public class UserController {
         this.userMapper = userMapper;
 
     }
-
+    @GetMapping("/showAllUsers")
+    public List<User> getAllUsers(){
+        return userService.getAllUsers();
+    }
 
     @PostMapping("/register")
     public ResponseEntity<User>createUser(@Valid @RequestBody UserDto userDto){
@@ -42,24 +45,22 @@ public class UserController {
     }
     @GetMapping("/login/{email}/{password}")
     public User getUser(@PathVariable String email, @PathVariable String password){
-        return userService.getUser(email, password);
+        return userService.login(email, password);
     }
     @GetMapping("/logout/{id}")
     public User logoutUser(@PathVariable int id){
         return userService.logoutUser(id);
     }
-    @GetMapping("/showAllUsers")
-    public List<User> getAllUsers(){
-        return userService.getAllUsers();
-    }
 
 
     @PutMapping("/{id}")
-    public void editUserInfo(
-            @Valid
-            @RequestBody
-                    UserDto userDto, @PathVariable int id) {
+    public void editUserInfo(@Valid @RequestBody UserDto userDto, @PathVariable int id) {
         User user = userMapper.userDtoToUser(userDto);
         userService.editUserInfo(user, id);
     }
+    @GetMapping("/totalPositiveReviews/{userId}")
+    public String TotalPositiveReviews(@PathVariable int userId){
+        return userService.TotalPositiveReviews(userId);
+    }
+
 }
