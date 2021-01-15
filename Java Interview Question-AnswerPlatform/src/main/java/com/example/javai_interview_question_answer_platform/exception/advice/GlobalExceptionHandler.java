@@ -37,6 +37,11 @@ public class GlobalExceptionHandler extends RuntimeException{
         return ResponseEntity
                 .badRequest().body(e.getMessage());
     }
+    @ExceptionHandler(QuizNotFoundException.class)
+    public ResponseEntity handle(QuizNotFoundException e){
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    }
     @ExceptionHandler(NoReviewException.class)
     public ResponseEntity handle(NoReviewException e){
         return ResponseEntity

@@ -3,41 +3,32 @@ package com.example.javai_interview_question_answer_platform.model;
 import java.util.HashMap;
 
 public class Quiz {
-    //exemplu: raspunsul corect la intrebarea cu key = 1 din quizQuestion este elementul cu key = 1 din quizAnswer
-    private HashMap<Integer, String> quizQuestions = new HashMap<Integer, String>();
-    private HashMap<Integer, String> quizAnswers = new HashMap<Integer, String>();
-    private int score;
 
-    public Quiz(HashMap<Integer, String> quizQuestions, HashMap<Integer, String> quizAnswers, int score) {
-        this.quizQuestions = quizQuestions;
-        this.quizAnswers = quizAnswers;
-        this.score = score;
+    private int id;
+    private int totalPoints;
+
+    public Quiz(int totalPoints) {
+        this.totalPoints = totalPoints;
     }
 
-    public Quiz() {
+    public Quiz(int id, int totalPoints) {
+        this.id = id;
+        this.totalPoints = totalPoints;
     }
 
-    public HashMap<Integer, String> getQuizQuestions() {
-        return quizQuestions;
+    public int getId() {
+        return id;
     }
 
-    public void setQuizQuestions(HashMap<Integer, String> quizQuestions) {
-        this.quizQuestions = quizQuestions;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public HashMap<Integer, String> getQuizAnswers() {
-        return quizAnswers;
+    public int getTotalPoints() {
+        return totalPoints;
     }
 
-    public void setQuizAnswers(HashMap<Integer, String> quizAnswers) {
-        this.quizAnswers = quizAnswers;
-    }
-
-    public int getScore() {
-        return score;
-    }
-
-    public void setScore(int score) {
-        this.score = score;
+    public void setTotalPoints(int totalPoints) {
+        this.totalPoints = totalPoints;
     }
 }

@@ -32,7 +32,7 @@ public class UserService {
     public User createUser(User user) {
         Optional<User> existingUserSameEmail = userRepository.getByEmail(user.getEmail());
         existingUserSameEmail.ifPresent(e -> {
-           // System.out.println(user.getEmail());
+
             throw new DuplicateEmailException();
         });
 
@@ -63,9 +63,9 @@ public class UserService {
         Optional<User> userOptional = userRepository.getUser(email, password);
 
         if (userOptional.isPresent()) {
-           // System.out.println("userul este " + userOptional.get());
+
             if (userOptional.get().isLoggedIn() == false) {
-               // System.out.println("Am intrat pe update login status service");
+
                 userRepository.editUserLoginStatus(userOptional.get().getId(), true);
                 Optional<User> userOptionalAfterStatusChanged = userRepository.getUser(email, password);
                 return userOptionalAfterStatusChanged.get();

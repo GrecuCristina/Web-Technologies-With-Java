@@ -5,6 +5,7 @@ import com.example.javai_interview_question_answer_platform.mapper.AnswerMapper;
 import com.example.javai_interview_question_answer_platform.model.Answer;
 import com.example.javai_interview_question_answer_platform.model.Question;
 import com.example.javai_interview_question_answer_platform.service.AnswerService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -27,7 +28,10 @@ public class AnswerController {
         this.answerService = answerService;
     }
 
+
     @PostMapping
+    @ApiOperation(value = "Create an Answer",
+            notes = "Creates a new Answer based on the information received in the request")
     public ResponseEntity<Answer> addAnswer(@Valid @RequestBody AnswerDto answerDto){
 
         Answer answer = answerMapper.answerDtoToAnswer(answerDto);
@@ -38,6 +42,8 @@ public class AnswerController {
 
     }
     @GetMapping("/{questionId}")
+    @ApiOperation(value = "Get all answers",
+            notes = "Get all answers for a certain posted question - based on the information received in the request")
     public ResponseEntity<List<Answer>> getAllAnswers(@PathVariable int questionId) {
         List<Answer> answerList = answerService.getAllAnswers(questionId);
         return new ResponseEntity<>(answerList, HttpStatus.OK);

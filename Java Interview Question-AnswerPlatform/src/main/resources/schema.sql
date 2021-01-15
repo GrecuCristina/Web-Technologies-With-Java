@@ -49,3 +49,59 @@ CREATE TABLE if NOT EXISTS reviews (
   CONSTRAINT answer_id_fk FOREIGN KEY (answerId) REFERENCES answers (id) ON DELETE CASCADE
 
 );
+CREATE TABLE if NOT EXISTS quizzes (
+  id int(20) NOT NULL AUTO_INCREMENT,
+  totalPoints int(20),
+  PRIMARY KEY (id)
+
+);
+CREATE TABLE if NOT EXISTS quizQuestions (
+  id int(20) NOT NULL AUTO_INCREMENT,
+  quizId int(20) NOT NULL,
+  description varchar(255),
+  point int(20),
+  PRIMARY KEY (id),
+  KEY quiz_id_fk (quizId),
+  CONSTRAINT quiz_id_fk FOREIGN KEY (quizId) REFERENCES quizzes(id) ON DELETE CASCADE
+
+);
+CREATE TABLE if NOT EXISTS quizAnswers (
+  id int(20) NOT NULL AUTO_INCREMENT,
+  quizQuestionId int(20) NOT NULL,
+  description varchar (255),
+  isCorrect  varchar (255),
+  PRIMARY KEY (id),
+  KEY quizQuestion_id_fk (quizQuestionId),
+  CONSTRAINT quizQuestion_id_fk FOREIGN KEY (quizQuestionId) REFERENCES quizQuestions(id)
+
+);
+CREATE TABLE if NOT EXISTS userQuizzes (
+  id int(20) NOT NULL AUTO_INCREMENT,
+  uId int(20),
+  quId int(20),
+  qeId int(20),
+  aId int(20),
+  points int(20),
+
+  PRIMARY KEY (id),
+  KEY u_id_fk (uId),
+  CONSTRAINT u_id_fk FOREIGN KEY (uId) REFERENCES users (id) ,
+   KEY qu_id_fk (quId),
+  CONSTRAINT qu_id_fk FOREIGN KEY (quId) REFERENCES quizzes (id) ,
+  KEY qe_id_fk (qeId),
+  CONSTRAINT qe_id_fk FOREIGN KEY (qeId) REFERENCES quizQuestions (id) ,
+   KEY a_id_fk (aId),
+  CONSTRAINT a_id_fk FOREIGN KEY (aId) REFERENCES quizAnswers (id)
+);
+CREATE TABLE if NOT EXISTS takenQuiz (
+  id int(20) NOT NULL AUTO_INCREMENT,
+  userId int(20),
+  questionId int(20),
+
+  PRIMARY KEY (id),
+  KEY us_id_fk (userId),
+  CONSTRAINT us_id_fk FOREIGN KEY (userId) REFERENCES users (id),
+  KEY question_id_fk (questionId),
+  CONSTRAINT question_id_fk FOREIGN KEY (questionId) REFERENCES quizQuestions(id)
+
+);
