@@ -48,9 +48,9 @@ public class QuestionService {
 
 
     public boolean removeQuestion(int userId, int id) {
-        System.out.println(id);
+
         Optional<Question> questionOptional = questionRepository.getQuestionById(id);
-        System.out.println(" ");
+
         if(questionOptional.isPresent())
         {
 

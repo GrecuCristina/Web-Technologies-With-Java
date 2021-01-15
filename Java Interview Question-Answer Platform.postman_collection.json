@@ -58,7 +58,37 @@
 			"response": []
 		},
 		{
+			"name": "editUserInfo",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "getAllUsers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "totalPositiveReviewsForAnUser",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -99,6 +129,17 @@
 			"response": []
 		},
 		{
+			"name": "getAllQuestions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "addAnswer",
 			"request": {
 				"method": "POST",
@@ -127,36 +168,6 @@
 			"response": []
 		},
 		{
-			"name": "editUserInfo",
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/user",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"user"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "getAllQuestions",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": ""
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "getAllAnswersToAQuestion",
 			"request": {
 				"method": "GET",
@@ -179,28 +190,6 @@
 			"response": []
 		},
 		{
-			"name": "totalPositiveReviewsForAnUser",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": ""
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "getAllQuestionsForAQuiz",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": ""
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "getAllQuizzes",
 			"request": {
 				"method": "GET",
@@ -212,7 +201,7 @@
 			"response": []
 		},
 		{
-			"name": "getQuizQuestions",
+			"name": "getAllQuestionsForAQuiz",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -252,6 +241,17 @@
 		},
 		{
 			"name": "showUserScore",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getQuizQuestions",
 			"request": {
 				"method": "GET",
 				"header": [],

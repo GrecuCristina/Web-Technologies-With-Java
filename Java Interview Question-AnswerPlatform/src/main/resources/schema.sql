@@ -93,15 +93,3 @@ CREATE TABLE if NOT EXISTS userQuizzes (
    KEY a_id_fk (aId),
   CONSTRAINT a_id_fk FOREIGN KEY (aId) REFERENCES quizAnswers (id)
 );
-CREATE TABLE if NOT EXISTS takenQuiz (
-  id int(20) NOT NULL AUTO_INCREMENT,
-  userId int(20),
-  questionId int(20),
-
-  PRIMARY KEY (id),
-  KEY us_id_fk (userId),
-  CONSTRAINT us_id_fk FOREIGN KEY (userId) REFERENCES users (id),
-  KEY question_id_fk (questionId),
-  CONSTRAINT question_id_fk FOREIGN KEY (questionId) REFERENCES quizQuestions(id)
-
-);
